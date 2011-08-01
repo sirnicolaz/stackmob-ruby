@@ -1,5 +1,7 @@
 source "http://rubygems.org"
 
+gem "oauth", "~> 0.4.5"
+
 group :development do
   gem "minitest", ">= 0"
   gem "yard", "~> 0.6.0"
