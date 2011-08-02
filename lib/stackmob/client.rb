@@ -19,10 +19,10 @@ module StackMob
       create_oauth_client(oauth_key, oauth_secret, base_url)
     end
 
-    def request(method, path)
+    def request(method, service, path)
       raise InvalidRequestMethod unless VALID_METHODS.include?(method)
 
-      response = @oauth_client.send(method, full_path(path))      
+      response = @oauth_client.send(method, full_path(service, path))      
       if response.code.to_i == 200
         parse_response(response)
       else
@@ -42,8 +42,8 @@ module StackMob
     end
     private :parse_response
 
-    def full_path(requested_path)
-      "/api/#{self.app_vsn}/#{self.app_name}/#{strip_prepending_slash(requested_path)}"
+    def full_path(service, requested_path)
+      "/#{service}/#{self.app_vsn}/#{self.app_name}/#{strip_prepending_slash(requested_path)}"
     end
     private :full_path
 

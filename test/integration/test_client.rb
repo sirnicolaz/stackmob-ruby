@@ -29,7 +29,7 @@ class StackMobClientIntegrationTest < MiniTest::Unit::TestCase
   end
 
   def test_valid_get_path
-    api_result_hash = @valid_client.request(:get, "/listapi")
+    api_result_hash = @valid_client.request(:get, :api, "/listapi")
     assert api_result_hash.has_key?("user")
   end
 

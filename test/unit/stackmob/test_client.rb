@@ -19,12 +19,12 @@ class StackmobClientTest < MiniTest::Unit::TestCase
     good_resp.stubs(:body).returns(Yajl::Encoder.encode(test_hash))                                 
     stub_all_requests(:get, good_resp)
 
-    assert_equal test_hash, valid_client.request(:get, "/abc")
+    assert_equal test_hash, valid_client.request(:get, :some_service, "/abc")
   end
 
   def test_requesting_invalid_method_raises_error
     assert_raises StackMob::Client::InvalidRequestMethod do
-      valid_client.request(:invalid, "/asd")
+      valid_client.request(:invalid, :some_service, "/asd")
     end
   end
 
@@ -35,7 +35,7 @@ class StackmobClientTest < MiniTest::Unit::TestCase
 
     
     assert_raises StackMob::Client::RequestError do
-      valid_client.request(:get, "/asd")
+      valid_client.request(:get, :some_service, "/asd")
     end
   end
 
@@ -46,7 +46,7 @@ class StackmobClientTest < MiniTest::Unit::TestCase
     stub_all_requests(:get, resp_w_invalid_body)
 
     assert_raises StackMob::Client::BadResponseBody do
-      valid_client.request(:get, "/asd")
+      valid_client.request(:get, :some_service, "/asd")
     end
   end
 
