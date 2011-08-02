@@ -9,6 +9,7 @@ rescue Bundler::BundlerError => e
 end
 require 'minitest/unit'
 require 'mocha'
+require 'yajl'
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
