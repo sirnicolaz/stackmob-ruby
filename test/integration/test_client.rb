@@ -33,6 +33,17 @@ class StackMobClientIntegrationTest < MiniTest::Unit::TestCase
     assert api_result_hash.has_key?("user")
   end
 
+  def test_get_path_without_prepending_slash
+    res = @valid_client.request(:get, :api, "listapi")
+    assert res.has_key?("user")
+  end
+
+  def test_invalid_get_path_raises_error
+    assert_raises StackMob::Client::RequestError do 
+      @valid_client.request(:get, :api, "/dne")
+    end
+  end
+
   private
 
   # SHOULD THE EXIT REQUIREMENTS BE MOVED TO THE HELPER IF POSSIBLE?
