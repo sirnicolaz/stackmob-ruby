@@ -26,24 +26,34 @@ end
 Jeweler::RubygemsDotOrgTasks.new
 
 require 'rake/testtask'
-Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-end
-
 require 'rcov/rcovtask'
-Rcov::RcovTask.new do |test|
-  test.libs << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-  test.rcov_opts << '--exclude "gems/*"'
+namespace :test do
+ 
+  
+  Rake::TestTask.new(:unit) do |test|
+    test.libs << 'lib' << 'test'
+    test.pattern = 'test/unit/**/test_*.rb'
+    test.verbose = true
+  end		
+
+  Rake::TestTask.new(:integration) do |test|
+    test.libs << 'lib' << 'test'
+    test.pattern = 'test/integration/**/test_*.rb'
+    test.verbose = true
+  end
+
+  Rcov::RcovTask.new do |test|
+    test.libs << 'test'
+    test.pattern = 'test/**/test_*.rb'
+    test.verbose = true
+    test.rcov_opts << '--exclude "gems/*"'
+  end
+
+  desc "Run Unit & Integration Tests"
+  task :all => [:unit, :integration]
 end
 
-require 'cucumber/rake/task'
-Cucumber::Rake::Task.new(:features)
-
-task :default => :test
+task :default => "test:all"
 
 require 'yard'
 YARD::Rake::YardocTask.new
