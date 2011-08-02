@@ -1,6 +1,7 @@
 source "http://rubygems.org"
 
 gem "oauth", "~> 0.4.5"
+gem "yajl-ruby", "~> 0.8.2", :require => "yajl"
 
 group :development do
   gem "minitest", ">= 0"
