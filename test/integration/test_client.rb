@@ -12,18 +12,18 @@ class ClientIntegrationTest < StackMobIntegrationTest
   end
 
   def test_valid_get_path
-    api_result_hash = @valid_client.request(:get, :api, "/listapi")
+    api_result_hash = valid_client.request(:get, :api, "/listapi")
     assert api_result_hash.has_key?("user")
   end
 
   def test_get_path_without_prepending_slash
-    res = @valid_client.request(:get, :api, "listapi")
+    res = valid_client.request(:get, :api, "listapi")
     assert res.has_key?("user")
   end
 
   def test_invalid_get_path_raises_error
     assert_raises StackMob::Client::RequestError do 
-      @valid_client.request(:get, :api, "/dne")
+      valid_client.request(:get, :api, "/dne")
     end
   end
 
@@ -31,15 +31,15 @@ class ClientIntegrationTest < StackMobIntegrationTest
     user_id = "123"
     user_name = "StackMob Test"
 
-    @valid_client.request(:delete, :api, "/user", :user_id => user_id) # delete the object in case it exists already
+    valid_client.request(:delete, :api, "/user", :user_id => user_id) # delete the object in case it exists already
 
-    @valid_client.request(:post, :api, "/user", :user_id => user_id, :name => user_name)
+    valid_client.request(:post, :api, "/user", :user_id => user_id, :name => user_name)
 
-    assert_equal user_name, @valid_client.request(:get, :api, "/user", :user_id => user_id).first['name']
+    assert_equal user_name, valid_client.request(:get, :api, "/user", :user_id => user_id).first['name']
     
-    @valid_client.request(:put, :api, "/user", :user_id => user_id, :name => user_name + "updated")
+    valid_client.request(:put, :api, "/user", :user_id => user_id, :name => user_name + "updated")
     
-    assert_equal (user_name + "updated"), @valid_client.request(:get, :api, "/user", :user_id => user_id).first['name']
+    assert_equal (user_name + "updated"), valid_client.request(:get, :api, "/user", :user_id => user_id).first['name']
   end
 
 end

@@ -2,7 +2,7 @@ require 'helper'
 
 class StackMobIntegrationTest < MiniTest::Unit::TestCase
 
-  attr_reader :sm_url, :sm_key, :sm_secret
+  attr_reader :sm_url, :sm_key, :sm_secret, :valid_client
 
   MISSING_URL_ERR_MSG = "!! ABORTED: You must define the STACKMOB_TEST_URL environment variable in order to run this suite" 
 
