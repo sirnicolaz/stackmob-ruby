@@ -44,6 +44,22 @@ class StackMobClientIntegrationTest < MiniTest::Unit::TestCase
     end
   end
 
+  def test_user_object_lifecycle
+    user_id = "123"
+    user_name = "StackMob Test"
+
+    @valid_client.request(:delete, :api, "/user", :user_id => user_id) # delete the object in case it exists already
+
+    @valid_client.request(:post, :api, "/user", :user_id => user_id, :name => user_name)
+
+    assert_equal user_name, @valid_client.request(:get, :api, "/user", :user_id => user_id).first['name']
+    
+    @valid_client.request(:put, :api, "/user", :user_id => user_id, :name => user_name + "updated")
+    
+    assert_equal (user_name + "updated"), @valid_client.request(:get, :api, "/user", :user_id => user_id).first['name']
+
+  end
+
   private
 
   # SHOULD THE EXIT REQUIREMENTS BE MOVED TO THE HELPER IF POSSIBLE?

@@ -19,12 +19,14 @@ module StackMob
       create_oauth_client(oauth_key, oauth_secret, base_url)
     end
 
-    def request(method, service, path)
-      raise InvalidRequestMethod unless VALID_METHODS.include?(method)
+    def request(method, service, path, params = {})
+      request_path, request_body = generate_path_and_body(method, service, path, params)
 
-      response = @oauth_client.send(method, full_path(service, path))      
-      if response.code.to_i == 200
-        parse_response(response)
+      response = @oauth_client.send(method, request_path, request_body)
+
+      rcode = response.code.to_i
+      if rcode >= 200 && rcode <= 299
+        parse_response(response) if method == :get
       else
         raise RequestError
       end
@@ -34,6 +36,22 @@ module StackMob
       @oauth_client = OAuth::AccessToken.new(OAuth::Consumer.new(key, secret, :site => url))
     end
     private :create_oauth_client
+
+    def generate_path_and_body(method, service, path, params)
+      intermediate_path = full_path(service, path)
+      case method
+      when :get, :delete
+        [intermediate_path + "?" + params_to_qs(params), ""]
+      when :post, :put
+        [intermediate_path, Yajl::Encoder.encode(params)]
+      else
+        raise InvalidRequestMethod
+      end
+    end
+
+    def params_to_qs(params)
+      params.to_a.map { |pair| pair.join("=") }.join("&")
+    end
 
     def parse_response(r)
       Yajl::Parser.parse(r.body)
