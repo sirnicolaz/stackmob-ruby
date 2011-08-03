@@ -52,6 +52,7 @@ module StackMob
     def params_to_qs(params)
       params.to_a.map { |pair| pair.join("=") }.join("&")
     end
+    private :params_to_qs
 
     def parse_response(r)
       Yajl::Parser.parse(r.body)
