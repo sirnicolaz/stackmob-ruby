@@ -23,7 +23,7 @@ class DataStoreIntegrationTest < StackMobIntegrationTest
 
     assert_equal name, @ds.get(:user, :username => username).first['name']
 
-    @ds.update(:user, :username => username, :name => updated_name)
+    @ds.update(:user, username, :name => updated_name)
 
     assert_equal updated_name, @ds.get_one(:user, :username => username)['name']
   end

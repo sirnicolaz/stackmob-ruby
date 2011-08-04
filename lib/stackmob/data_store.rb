@@ -29,8 +29,8 @@ module StackMob
       get(obj_name, params).first
     end
 
-    def update(obj_name, params)
-      self.client.request(:put, API_SVC, obj_name_to_path(obj_name), params)
+    def update(obj_name, obj_id, params)
+      self.client.request(:put, API_SVC, obj_name_to_path(obj_name) + "/#{obj_id}", params)
     end
 
     def obj_name_to_path(obj_name)

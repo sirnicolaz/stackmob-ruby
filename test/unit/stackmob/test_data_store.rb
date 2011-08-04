@@ -38,10 +38,10 @@ class StackMobDataStoreTest < MiniTest::Unit::TestCase
   def test_update_call
     uid = "abc"
     name = "test user"
-    params = {:user_name  => uid, :name => name}
+    params = {:name => name}
 
-    @mock_client.expects(:request).with(:put, :api, "/user", params).returns(nil)
-    @datastore.update(:user, params)
+    @mock_client.expects(:request).with(:put, :api, "/user/#{uid}", params).returns(nil)
+    @datastore.update(:user, uid, params)
   end  
 
 end
