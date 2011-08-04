@@ -28,18 +28,18 @@ class ClientIntegrationTest < StackMobIntegrationTest
   end
 
   def test_user_object_lifecycle
-    user_id = "123"
-    user_name = "StackMob Test"
+    username = "123"
+    name = "StackMob Test"
 
-    valid_client.request(:delete, :api, "/user", :user_id => user_id) # delete the object in case it exists already
+    valid_client.request(:delete, :api, "/user", :username => username) # delete the object in case it exists already
 
-    valid_client.request(:post, :api, "/user", :user_id => user_id, :name => user_name)
+    valid_client.request(:post, :api, "/user", :username => username, :name => name)
 
-    assert_equal user_name, valid_client.request(:get, :api, "/user", :user_id => user_id).first['name']
+    assert_equal name, valid_client.request(:get, :api, "/user", :username => username).first['name']
     
-    valid_client.request(:put, :api, "/user", :user_id => user_id, :name => user_name + "updated")
+    valid_client.request(:put, :api, "/user", :username => username, :name => name + "updated")
     
-    assert_equal (user_name + "updated"), valid_client.request(:get, :api, "/user", :user_id => user_id).first['name']
+    assert_equal (name + "updated"), valid_client.request(:get, :api, "/user", :username => username).first['name']
   end
 
 end

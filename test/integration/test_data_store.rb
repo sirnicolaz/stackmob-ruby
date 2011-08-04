@@ -13,19 +13,19 @@ class DataStoreIntegrationTest < StackMobIntegrationTest
   end
 
   def test_user_object_lifecycle
-    user_id = "456"
-    user_name = "StackMob Test"
+    username = "456"
+    name = "StackMob Test"
     updated_name = "updated name"
 
-    @ds.delete(:user, :user_id => user_id)
+    @ds.delete(:user, :username => username)
 
-    @ds.create(:user, :user_id => user_id, :name => user_name)
+    @ds.create(:user, :username => username, :name => name)
 
-    assert_equal user_name, @ds.get(:user, :user_id => user_id).first['name']
+    assert_equal name, @ds.get(:user, :username => username).first['name']
 
-    @ds.update(:user, :user_id => user_id, :name => updated_name)
+    @ds.update(:user, :username => username, :name => updated_name)
 
-    assert_equal updated_name, @ds.get_one(:user, :user_id => user_id)['name']
+    assert_equal updated_name, @ds.get_one(:user, :username => username)['name']
   end
 
 end
