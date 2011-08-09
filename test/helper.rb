@@ -14,6 +14,7 @@ require 'yajl'
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'stackmob'
+require 'stackmob/deployer' # include deployer explicitly for testing purposes since its not required by default
 
 class MiniTest::Unit::TestCase
 end
