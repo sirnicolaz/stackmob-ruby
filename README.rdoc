@@ -1,9 +1,0 @@
-= stackmob-heroku
-
-Support Gem for StackMob Heroku Add-On
-
-== Copyright
-
-Copyright (c) 2011 StackMob. See LICENSE.txt for
-further details.
-
