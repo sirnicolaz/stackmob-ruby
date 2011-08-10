@@ -36,11 +36,53 @@ The simplest operation to perform is to list the application's schema:
     >> datastore.api_schema
      => {"user"=>{"properties"=>{"username"=> ...
 
-    NEED GET/CREATE/UPDATE/DELETE examples    
+To fetch all records for an object use `StackMob::DatStore#get`: 
 
+    >> datastore.get(:user)
+	 => [{"username"=>"Some User", "lastmoddate"=>1312996693261, ...
+
+Fetch a single record using `StackMob::DataStor#get_one`:
+   
+    >> datastore.get(:user, :username => "Some User")
+	 => {"username"=>"Some User", "lastmoddate"=>1312996693261, ...
+	 
+    >> datastore.get(:user, :username => "D.N.E")
+	 => nil
+	 
+Create and update records: 
+   
+    >> datastore.create(:user, :username => "newuser", :name => "First Last") # StackMob::DatStore#create will raise a StackMob::Client::RequestError if it fails
+	 => nil	
+	 
+	>> datastore.update(:user, "newuser", :name => "New Name") # StackMob::DataStore#update will raise a StackMob::Client::RequestError if it fails	
+	 => nil
+	 
+	 
+Delete records
+
+    >> datastore.delete(:user, :username => "newuser") # StackMob::DataStore#delete will raise a StackMob::Client::RequestError if it fails
+     => nil
+	 
 ## Interacting With Your API in Your Application
 
-    NEED EXAMPLES OF USING sm_datastore & sm_push inside controllers
+When you include `StackMob::ControllerMethods` in your `ApplicationController` you get a couple of convenience methods to use in your controller actions. `sm_datastore` and `sm_push` provide per-request instances of `StackMob::DataStore` & `StackMob::Push` (for more information on Push see "Sending Push Messages from your Application"). An example action, which returns a list of usernames for each user object record is below:
+
+    class MyController < ApplicationController
+	  
+	  def username_list
+		users = sm_datastore.get(:user)
+		
+		render :json => { :usernames => usernames.map { |u| u['username'] }
+		
+      rescue StackMob::Client::RequestError # something went wrong making the request
+	    render :json => {"error": "could not communicate with StackMob Servers"}
+      end
+	  	
+    end
+
+### Sending Push Messages from your Application
+
+    NEED DOCS HERE ON USING sm_push
 
 ## Copyright
 
