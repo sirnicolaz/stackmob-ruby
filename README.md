@@ -10,10 +10,18 @@ Add the following to your Gemfile and run `bundle install`:
     
 ## Configuring Your Application    
     
-The gem requires a few configuration details that need to be added to the file `config/stackmob.yml`.
+The gem requires a few configuration details that need to be added to the file `config/stackmob.yml`. You will need the name of the application you created, as well as your public and private keys for both development (sandbox) and production from the StackMob add-on dashboard.
 
     # example config/stackmob.yml
-    THERE SHOULD BE AN EXAMPLE FILE HERE & REALLY WE SHOULD GENERATE A BASE ONE FOR THEM TAKING KEYS AS INPUT
+	app_name: test3
+
+    development:	
+      key: 655b062d-8c36-413d-ac0f-8354ca32c5ad
+      secret: ebfe8b21-9401-421c-9b98-28bd721cf367
+
+    production:	
+      key: 94570f20-883a-4b39-beb4-a9438d6a02f8
+      secret: 3dd8844a-df51-415e-998a-3c56275ff169
     
 Additionally, you will want to include some helpful methods in your controllers. Add the line below to the `ApplicationController`. Check out "Interacting With Your API in Your Application" for more  details about the methods provided by StackMob::ControllerMethods.
 
