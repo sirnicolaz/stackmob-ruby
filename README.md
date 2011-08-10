@@ -14,6 +14,7 @@ The gem requires a few configuration details that need to be added to the file `
 
     # example config/stackmob.yml
 	sm_app_name: StackMob App Name
+	sm_client_name: Your StackMob Client Name
     heroku_app_name: Heroku App Name
 
     development:	

@@ -18,15 +18,27 @@ module StackMob
   end
   
   def self.secret
-    StackMob.config[sm_env]['secret']
+    StackMob.config[sm_env_str]['secret']
+  end
+
+  def self.key
+    StackMob.config[sm_env_str]['secret']
   end
 
   def self.app_name
     StackMob.config['sm_app_name']
   end
 
-  def self.sm_env
-    (Rails.env.production?) ? "production" : "development"
+  def self.client_name
+    StackMob.config['sm_client_name']
+  end
+
+  def self.env
+    (Rails.env.production?) ? PRODUCTION : SANDBOX
+  end
+
+  def self.sm_env_str
+    env == PRODUCTION ? "production" : "development"
   end
 
 end
