@@ -32,7 +32,7 @@ class SimpleOAuthProviderTest < MiniTest::Unit::TestCase
   end
 
   def setup
-    StackMob.stubs(:config).returns("secret" => "ebfe8b21-9401-421c-9b98-28bd721cf367")
+    StackMob.stubs(:secret).returns("ebfe8b21-9401-421c-9b98-28bd721cf367")
   end
 
   def test_successful_oauth

@@ -11,7 +11,7 @@ module StackMob
       
       def call(env)
         request = ::Rack::Request.new(env)
-        signature = OAuth::Signature.build(request, :token_secret => "", :consumer_secret => StackMob.config['secret'])
+        signature = OAuth::Signature.build(request, :token_secret => "", :consumer_secret => StackMob.secret)
         if signature.verify          
           @app.call(env)
         else
