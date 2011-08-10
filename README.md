@@ -108,7 +108,36 @@ When you include `StackMob::ControllerMethods` in your `ApplicationController` y
 
 Only the `:alert` key is required when sending or broadcasting messages. 
 
+## Deploying
+
+Deploying your application only requires one additional step. After you have pushed your changes to Heroku you will need to run:
+
+    heroku run rake stackmob:deploy
+	
+This rake task will inform the StackMob servers that you have deployed a new version of your application as well as update any information that may be needed to proxy requests to your application.
+
+## Contributing to stackmob-heroku
+
+stackmob-heroku is Apache 2.0 licensed (see LICENSE.txt) and we look forward to your contributions. 
+
+### Reporting Bugs
+
+We are using [GitHub Issues](https://github.com/stackmob/stackmob-heroku/issues) to track feature requests and bugs.
+
 ## Copyright
 
-Copyright (c) 2011 StackMob. See LICENSE.txt for
-further details
+Copyright 2011 StackMob
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
