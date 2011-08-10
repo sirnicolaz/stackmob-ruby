@@ -13,15 +13,16 @@ Add the following to your Gemfile and run `bundle install`:
 The gem requires a few configuration details that need to be added to the file `config/stackmob.yml`. You will need the name of the application you created, as well as your public and private keys for both development (sandbox) and production from the StackMob add-on dashboard.
 
     # example config/stackmob.yml
-	app_name: test3
+	sm_app_name: StackMob App Name
+    heroku_app_name: Heroku App Name
 
     development:	
-      key: 655b062d-8c36-413d-ac0f-8354ca32c5ad
-      secret: ebfe8b21-9401-421c-9b98-28bd721cf367
+      key: Your StackMob Sandbox Public Key
+      secret: Your StackMob Sandbox Private Key
 
     production:	
-      key: 94570f20-883a-4b39-beb4-a9438d6a02f8
-      secret: 3dd8844a-df51-415e-998a-3c56275ff169
+      key: Your StackMob Production Public Key
+      secret: Your StackMob Production Private Key
     
 Additionally, you will want to include some helpful methods in your controllers. Add the line below to the `ApplicationController`. Check out "Interacting With Your API in Your Application" for more  details about the methods provided by StackMob::ControllerMethods.
 

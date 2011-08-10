@@ -21,6 +21,10 @@ module StackMob
     StackMob.config[sm_env]['secret']
   end
 
+  def self.app_name
+    StackMob.config['sm_app_name']
+  end
+
   def self.sm_env
     (Rails.env.production?) ? "production" : "development"
   end

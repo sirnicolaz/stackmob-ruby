@@ -25,7 +25,7 @@ module StackMob
     private :sm_push_host
     
     def sm_app_name
-      StackMob.config['app_name']
+      StackMob.app_name
     end
     private :sm_app_name
     
