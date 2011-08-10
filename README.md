@@ -82,7 +82,21 @@ When you include `StackMob::ControllerMethods` in your `ApplicationController` y
 
 ### Sending Push Messages from your Application
 
-    NEED DOCS HERE ON USING sm_push
+`StackMob::Push` allows you to interact with the Push Notification portion of your StackMob API. The examples below show how to register a device token, send a message to a single user or device token and how to send a broadcast message to all users.
+
+    # Register a User With His/Her Device Token in your Controller
+	sm_push.register("user_id", "user_device_token")
+	
+	# Send a Push Message to a User using Device Token
+	sm_push.send_message("user_device_token", :sound => "yoursoundfile.mp3", :alert => "The Message to Show the User", :badge => 2)
+	
+	# Send a Push Message to a User using the User Object's Primary Key
+	sm_push.send_message("primary_key_value", :sound => "yoursendfile.mp3", :alert => "Message", :badge => 0, :recipients_are_users => true)
+	
+	# Broadcast a Message
+	sm_push.broadcast(:badge => 1, :sound => "audiofile.mp3", :alert => "The Broadcasted Message")
+
+Only the `:alert` key is required when sending or broadcasting messages. 
 
 ## Copyright
 
