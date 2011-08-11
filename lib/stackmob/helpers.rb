@@ -13,7 +13,7 @@
 # limitations under the License.
 
 module StackMob
-  module ControllerMethods
+  module Helpers
     def sm_datastore
       @sm_datastore ||= begin
                           client = StackMob::Client.new(sm_api_host, sm_app_name, 0, sm_key, StackMob.secret)

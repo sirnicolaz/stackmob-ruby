@@ -20,7 +20,7 @@ require 'stackmob/client'
 require 'stackmob/data_store'
 require 'stackmob/push'
 require 'stackmob/rack/simple_oauth_provider'
-
+require 'stackmob/helpers'
 
 module StackMob
   
@@ -48,11 +48,16 @@ module StackMob
   end
 
   def self.env
-    (Rails.env.production?) ? PRODUCTION : SANDBOX
+    (is_production?) ? PRODUCTION : SANDBOX
   end
 
   def self.sm_env_str
     env == PRODUCTION ? "production" : "development"
   end
+
+  def self.is_production?
+    ENV["RACK_ENV"] == "production"
+  end
+
 
 end

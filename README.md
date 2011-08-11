@@ -1,6 +1,6 @@
 # stackmob-heroku
 
-This gem is meant to be used along with the StackMob add-on for Heroku. Using this gem you can run your StackMob application's custom code on Heroku using Rails 3.
+This gem is meant to be used along with the StackMob add-on for Heroku. Using this gem you can run your StackMob application's custom code on Heroku using Rails 3 & Sinatra (Rails 2.3.x Support Coming Soon).
 
 ## Adding StackMob to your Rails 3 Application
 
@@ -25,9 +25,9 @@ The gem requires a few configuration details that need to be added to the file `
       key: Your StackMob Production Public Key
       secret: Your StackMob Production Private Key
     
-Additionally, you will want to include some helpful methods in your controllers. Add the line below to the `ApplicationController`. Check out "Interacting With Your API in Your Application" for more  details about the methods provided by StackMob::ControllerMethods.
+Additionally, you will want to include some helpful methods in your controllers. Add the line below to the `ApplicationController`. Check out "Interacting With Your API in Your Application" for more  details about the methods provided by StackMob::Helpers.
 
-    include StackMob::ControllerMethods 
+    include StackMob::Helpers 
 
 ## Interacting with CRUD from the Console
 
@@ -75,7 +75,7 @@ Delete records
 	 
 ## Interacting With Your API in Your Application
 
-When you include `StackMob::ControllerMethods` in your `ApplicationController` you get a couple of convenience methods to use in your controller actions. `sm_datastore` and `sm_push` provide per-request instances of `StackMob::DataStore` & `StackMob::Push` (for more information on Push see "Sending Push Messages from your Application"). An example action, which returns a list of usernames for each user object record is below:
+When you include `StackMob::Helpers` in your `ApplicationController` you get a couple of convenience methods to use in your controller actions. `sm_datastore` and `sm_push` provide per-request instances of `StackMob::DataStore` & `StackMob::Push` (for more information on Push see "Sending Push Messages from your Application"). An example action, which returns a list of usernames for each user object record is below:
 
     class MyController < ApplicationController
 	  
@@ -107,6 +107,46 @@ When you include `StackMob::ControllerMethods` in your `ApplicationController` y
 	sm_push.broadcast(:badge => 1, :sound => "audiofile.mp3", :alert => "The Broadcasted Message")
 
 Only the `:alert` key is required when sending or broadcasting messages. 
+
+## Using Sinatra
+
+You can also write your application using Sinatra. Create a Gemfile like the one below and run `bundle install`. You also need to create a `config/stackmob.yml` like the one above.
+
+    source 'http://rubygems.org'
+	
+	gem 'sinatra'
+	gem 'stackmob-heroku', :require => 'stackmob/sinatra'
+	
+In your `config.ru` file add the following line:
+
+    `use StackMob::Rack::SimpleOAuthProvider`
+	
+To use the `StackMob::Helpers` module in a classic Sinatra application:
+
+    require 'bundler/setup'
+
+	require 'sinatra'
+	require 'stackmob/sinatra'
+	
+	before do
+	  content_type :json # your requests should always return a JSON content type
+    end
+	
+	...
+	
+To use it in a modular application:
+
+    require 'bundler/setup'
+	
+    require 'sinatra/base'
+	require 'stackmob/sinatra'
+	
+	class MyApp < Sinatra::Base
+	  helpers StackMob::Helpers
+	  
+	  ...
+	  
+     end
 
 ## Deploying
 
