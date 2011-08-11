@@ -129,7 +129,7 @@ To use the `StackMob::Helpers` module in a classic Sinatra application:
 	require 'stackmob/sinatra'
 	
 	before do
-	  content_type :json # your requests should always return a JSON content type
+	  content_type :json # your responses should always return a JSON content type
     end
 	
 	...
