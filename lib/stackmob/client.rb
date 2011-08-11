@@ -62,6 +62,7 @@ module StackMob
         raise InvalidRequestMethod
       end
     end
+    private :generate_path_and_body
 
     def params_to_qs(params)
       params.to_a.map { |pair| pair.join("=") }.join("&")
