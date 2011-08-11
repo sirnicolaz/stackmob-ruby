@@ -12,4 +12,5 @@ group :development do
   gem "rcov", ">= 0"
   gem "mocha", ">= 0"
   gem "rack-test"
+  gem "bluecloth"
 end
