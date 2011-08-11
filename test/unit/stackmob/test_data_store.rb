@@ -44,4 +44,40 @@ class StackMobDataStoreTest < MiniTest::Unit::TestCase
     @datastore.update(:user, uid, params)
   end  
 
+  def test_create_returns_false_on_request_error
+    @mock_client.expects(:request).raises(StackMob::Client::RequestError)
+    assert !@datastore.create(:user, :name => "def")
+  end
+
+  def test_create_bang_does_not_catch_error
+    @mock_client.expects(:request).raises(StackMob::Client::RequestError)
+    assert_raises StackMob::Client::RequestError do 
+      @datastore.create!(:user, :name => "def")
+    end
+  end
+
+  def test_update_returns_false_on_request_error
+    @mock_client.expects(:request).raises(StackMob::Client::RequestError)
+    assert !@datastore.update(:user, "123", :name => "def")
+  end
+
+  def test_update_bang_does_not_catch_error
+    @mock_client.expects(:request).raises(StackMob::Client::RequestError)
+    assert_raises StackMob::Client::RequestError do 
+      @datastore.update!(:user, "123", :name => "def")
+    end
+  end
+
+  def test_delete_returns_false_on_request_error
+    @mock_client.expects(:request).raises(StackMob::Client::RequestError)
+    assert !@datastore.delete(:user, :name => "ads")
+  end
+
+  def test_delete_bang_does_not_catch_error
+    @mock_client.expects(:request).raises(StackMob::Client::RequestError)
+    assert_raises StackMob::Client::RequestError do 
+      @datastore.delete!(:user, :name => "def")
+    end
+  end
+  
 end

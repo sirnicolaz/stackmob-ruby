@@ -51,27 +51,27 @@ To fetch all records for an object use `StackMob::DatStore#get`:
     >> datastore.get(:user)
 	 => [{"username"=>"Some User", "lastmoddate"=>1312996693261, ...
 
-Fetch a single record using `StackMob::DataStor#get_one`:
+Fetch a single record using `StackMob::DataStore#get_one`:
    
-    >> datastore.get(:user, :username => "Some User")
+    >> datastore.get_one(:user, :username => "Some User")
 	 => {"username"=>"Some User", "lastmoddate"=>1312996693261, ...
 	 
-    >> datastore.get(:user, :username => "D.N.E")
+    >> datastore.get_one(:user, :username => "D.N.E")
 	 => nil
 	 
 Create and update records: 
    
-    >> datastore.create(:user, :username => "newuser", :name => "First Last") # StackMob::DatStore#create will raise a StackMob::Client::RequestError if it fails
-	 => nil	
+    >> datastore.create(:user, :username => "newuser", :name => "First Last") 
+	 => true	
 	 
-	>> datastore.update(:user, "newuser", :name => "New Name") # StackMob::DataStore#update will raise a StackMob::Client::RequestError if it fails	
-	 => nil
+	>> datastore.update(:user, "newuser", :name => "New Name") 
+	 => true
 	 
 	 
 Delete records
 
-    >> datastore.delete(:user, :username => "newuser") # StackMob::DataStore#delete will raise a StackMob::Client::RequestError if it fails
-     => nil
+    >> datastore.delete(:user, :username => "newuser")
+     => true
 	 
 ## Interacting With Your API in Your Application
 
@@ -146,7 +146,7 @@ To use it in a modular application:
 	  
 	  ...
 	  
-     end
+    end
 
 ## Deploying
 

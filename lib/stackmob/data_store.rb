@@ -26,13 +26,25 @@ module StackMob
     def api_schema
       self.client.request(:get, API_SVC, "/listapi")
     end
-
-    def delete(obj_name, params)
-      self.client.request(:delete, API_SVC, obj_name_to_path(obj_name), params)
+    
+    def create(obj_name, params)
+      create!(obj_name, params); true
+    rescue Client::RequestError
+      false
     end
 
-    def create(obj_name, params)
+    def create!(obj_name, params)
       self.client.request(:post, API_SVC, obj_name_to_path(obj_name), params)
+    end
+
+    def delete(obj_name, params)
+      delete!(obj_name, params); true
+    rescue Client::RequestError
+      false
+    end
+
+    def delete!(obj_name, params)
+      self.client.request(:delete, API_SVC, obj_name_to_path(obj_name), params)
     end
 
     def get(obj_name, params = {})
@@ -44,6 +56,12 @@ module StackMob
     end
 
     def update(obj_name, obj_id, params)
+      update!(obj_name, obj_id, params); true
+    rescue Client::RequestError
+      false
+    end
+
+    def update!(obj_name, obj_id, params)
       self.client.request(:put, API_SVC, obj_name_to_path(obj_name) + "/#{obj_id}", params)
     end
 
