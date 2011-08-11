@@ -119,7 +119,7 @@ You can also write your application using Sinatra. Create a Gemfile like the one
 	
 In your `config.ru` file add the following line:
 
-    `use StackMob::Rack::SimpleOAuthProvider`
+    use StackMob::Rack::SimpleOAuthProvider
 	
 To use the `StackMob::Helpers` module in a classic Sinatra application:
 
