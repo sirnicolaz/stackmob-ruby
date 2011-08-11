@@ -1,3 +1,10 @@
+       /\  _`\ /\ \__                /\ \      /'\_/`\        /\ \
+        \ \,\L\_\ \ ,_\    __      ___\ \ \/'\ /\      \    ___\ \ \____
+         \/_\__ \\ \ \/  /'__`\   /'___\ \ , < \ \ \__\ \  / __`\ \ '__`\
+           /\ \L\ \ \ \_/\ \L\.\_/\ \__/\ \ \\`\\ \ \_/\ \/\ \L\ \ \ \L\ \
+           \ `\____\ \__\ \__/.\_\ \____\\ \_\ \_\ \_\\ \_\ \____/\ \_,__/
+            \/_____/\/__/\/__/\/_/\/____/ \/_/\/_/\/_/ \/_/\/___/  \/___/
+
 # stackmob-heroku
 
 This gem is meant to be used along with the StackMob add-on for Heroku. Using this gem you can run your StackMob application's custom code on Heroku using Rails 3.
