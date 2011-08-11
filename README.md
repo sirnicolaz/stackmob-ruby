@@ -164,6 +164,20 @@ stackmob-heroku is Apache 2.0 licensed (see LICENSE.txt) and we look forward to 
 
 We are using [GitHub Issues](https://github.com/stackmob/stackmob-heroku/issues) to track feature requests and bugs.
 
+### Running the Tests
+
+Before submitting a pull request add any appropriate tests and run them along with the existing ones. The gem includes tasks to run unit & integration tests seperately or together. Before running the integration tests you will need to setup a few things. First, create a new application on your StackMob account named "test". In the new application, create a User Object named "user", with one extra string field, "name". Finally, you will have to set a few environment variables. If your using RVM, a good place to put these is your .rvmrc file.
+
+    export STACKMOB_TEST_URL="YOURDOMAIN.stackmob.com"
+    export STACKMOB_TEST_KEY="YOUR TEST APP PUB KEY"
+    export STACKMOB_TEST_SECRET="YOUR TEST APP PRIV KEY"
+    
+You can run the tests with one of these three Rake tasks:
+
+    rake test:all
+    rake test:unit
+    rake test:integration
+
 ## Copyright
 
 Copyright 2011 StackMob
