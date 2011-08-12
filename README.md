@@ -6,7 +6,7 @@ This gem is meant to be used along with the StackMob add-on for Heroku. Using th
 
 Add the following to your Gemfile and run `bundle install`:
 
-    gem "stackmob-heroku", :require => "stackmob/heroku"
+    gem "stackmob-heroku", :require => "stackmob/rails"
     
 ## Configuring Your Application    
     
