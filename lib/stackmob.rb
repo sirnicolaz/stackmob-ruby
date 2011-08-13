@@ -36,7 +36,7 @@ module StackMob
   end
 
   def self.key
-    StackMob.config[sm_env_str]['secret']
+    StackMob.config[sm_env_str]['key']
   end
 
   def self.app_name
