@@ -40,7 +40,7 @@ module StackMob
 
       rcode = response.code.to_i
       if rcode >= 200 && rcode <= 299
-        parse_response(response) if method == :get
+        parse_response(response)
       else
         raise RequestError.new("\nReq Method: #{method}\nReq. Path: #{request_path}\nReq. Body: #{request_body}\nResp. Code: #{rcode}, Resp Body: #{response.respond_to?(:body) ? response.body : 'unknown'}")
       end
