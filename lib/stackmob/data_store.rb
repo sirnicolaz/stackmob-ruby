@@ -28,7 +28,7 @@ module StackMob
     end
     
     def create(obj_name, params)
-      create!(obj_name, params); true
+      create!(obj_name, params)
     rescue Client::RequestError
       false
     end
