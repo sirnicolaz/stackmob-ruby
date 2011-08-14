@@ -16,28 +16,34 @@ module StackMob
   module Helpers
     def sm_datastore
       @sm_datastore ||= begin
-                          client = StackMob::Client.new(sm_api_host, sm_app_name, 0, sm_key, StackMob.secret)
+                          client = StackMob::Client.new(sm_api_host, sm_app_name, 0, StackMob.key, StackMob.secret)
                           StackMob::DataStore.new(client)
                         end
     end
     
     def sm_push
       @sm_push ||= begin
-                     client = StackMob::Client.new(sm_push_host, sm_app_name, 0, sm_key, StackMob.secret)
+                     client = StackMob::Client.new(sm_push_host, sm_app_name, 0, StackMob.key, StackMob.secret)
                      StackMob::Push.new(client)
                    end
     end
     
     def sm_api_host
-      sm_normalize_host(request.env['HTTP_X_STACKMOB_API'])
+      sm_normalize_host(sm_hostname_from_header_or_config('HTTP_X_STACKMOB_API'))
     end
     private :sm_api_host
 
     def sm_push_host
-      sm_normalize_host(request.env['HTTP_X_STACKMOB_PUSH'])
+      sm_normalize_host(sm_hostname_from_header_or_config('HTTP_X_STACKMOB_PUSH'))
     end
     private :sm_push_host
     
+    def sm_hostname_from_header_or_config(header_str)
+      hostname = request.env[header_str]
+      (hostname.nil? || hostname == "") ? StackMob.dev_url : hostname
+    end
+    private :sm_hostname_from_header_or_config
+
     def sm_app_name
       StackMob.app_name
     end
@@ -47,11 +53,6 @@ module StackMob
       (Rails.env.production?) ? StackMob::PRODUCTION : StackMob::SANDBOX
     end
     private :sm_app_version
-    
-    def sm_key
-      @sm_key ||= OAuth::Signature.build(request).request.consumer_key    
-    end
-    private :sm_key
     
     def sm_normalize_host(host_str)
       normalized = host_str =~ /^http:\/\// ? "" : "http://"

@@ -27,18 +27,32 @@ module StackMob
         request = ::Rack::Request.new(env)
         signature = OAuth::Signature.build(request, :token_secret => "", :consumer_secret => StackMob.secret)
         if signature.verify          
-          @app.call(env)
+          authorized(env)
         else
-          not_authorized
+          auth_failed(env)
         end       
       rescue OAuth::Signature::UnknownSignatureMethod
-        not_authorized
+        auth_failed(env)
       end
       
-      def not_authorized
-          [401, {}, "Not Authorized\n"]
+      def authorized(env)
+        @app.call(env)
       end
-      private :not_authorized
+      private :authorized
+
+      def auth_failed(env)
+        if pass_through?
+          authorized(env)
+        else
+          [401, {}, "Not Authorized\n"]
+        end
+      end
+      private :auth_failed
+
+      def pass_through?
+        !StackMob.is_production? && StackMob.config['development']['no_oauth']
+      end
+      private :pass_through?
 
     end
   end

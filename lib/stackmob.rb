@@ -47,6 +47,10 @@ module StackMob
     StackMob.config['sm_client_name']
   end
 
+  def self.dev_url
+    "http://#{StackMob.client_name}.stackmob.com"
+  end
+
   def self.env
     (is_production?) ? PRODUCTION : SANDBOX
   end

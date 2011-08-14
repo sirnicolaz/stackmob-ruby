@@ -33,7 +33,7 @@ Additionally, you will want to include some helpful methods in your controllers.
 
 Once the gem is added to your application & configured you can take things for a test drive. You'll need to grab your public & private sandbox keys from the StackMob add-on page within the Heroku dashboard. Once you have those run `rails console`. All of the classes you will use in your application function using a class called `StackMob::Client`. You will not be exposed to this class in your controllers but to test in the console you will need to create an instance:
 
-    >> stackmob_client = StackMob::Client.new("http://#{StackMob.client_name}.stackmob.com/", StackMob.app_name, StackMob::SANDBOX, StackMob.key, StackMob.secret)
+    >> stackmob_client = StackMob::Client.new(StackMob.dev_url, StackMob.app_name, StackMob::SANDBOX, StackMob.key, StackMob.secret)
      => #<StackMob::Client:0x007fae99839cb8 @app_name= ...>
     
 Although you can use the `StackMob::Client` to interact with the CRUD methods of your API, you will be using `StackMob::DataStore` in your application, which provides a much simpler interface to perform operations.
