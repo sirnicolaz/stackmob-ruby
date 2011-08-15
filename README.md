@@ -147,6 +147,13 @@ To use it in a modular application:
 	  ...
 	  
     end
+	
+### Adding Rake Tasks to a Sinatra Application
+
+Add the following lines to your Rakefile in order to add the `stackmob:deploy` task. 
+
+	require 'bundler/setup' # add this line if its not already included in your Rakefile
+	require 'stackmob/tasks'
 
 ## Deploying
 
@@ -155,6 +162,10 @@ Deploying your application only requires one additional step. After you have pus
     heroku run rake stackmob:deploy
 	
 This rake task will inform the StackMob servers that you have deployed a new version of your application as well as update any information that may be needed to proxy requests to your application.
+
+## Running your Application Locally in Development
+
+The railtie provided with this gem adds a simple oauth provider into the middleware stack. When making requests to your Rails or Sinatra application while its running locally you can either use the oauth gem, installed as a dependency to this one, with your public/private development keys in `config/stackmob.yml` or add the line `no_oauth: true` under the development section of the same config file. Adding the `no_oauth: true` line to `config/stackmob.yml` will only prevent verification of oauth keys locally. It will not turn off the middleware in production even if the option is specified under the production section of the config file. 
 
 ## Contributing to stackmob-heroku
 
