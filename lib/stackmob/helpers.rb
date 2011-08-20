@@ -16,14 +16,14 @@ module StackMob
   module Helpers
     def sm_datastore
       @sm_datastore ||= begin
-                          client = StackMob::Client.new(sm_api_host, sm_app_name, 0, StackMob.key, StackMob.secret)
+                          client = StackMob::Client.new(sm_api_host, sm_app_name, StackMob.env, StackMob.key, StackMob.secret)
                           StackMob::DataStore.new(client)
                         end
     end
     
     def sm_push
       @sm_push ||= begin
-                     client = StackMob::Client.new(sm_push_host, sm_app_name, 0, StackMob.key, StackMob.secret)
+                     client = StackMob::Client.new(sm_push_host, sm_app_name, StackMob.env, StackMob.key, StackMob.secret)
                      StackMob::Push.new(client)
                    end
     end
