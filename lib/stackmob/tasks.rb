@@ -23,7 +23,7 @@ namespace :stackmob do
     exit("No Heroku App Name Found in StackMob Config") if app_name.blank?
     exit("No Client Name Found in StackMob Config") if StackMob.client_name.blank?
     
-    hostname = "#{app_name}.heroku.com"
+    hostname = "#{app_name}.herokuapp.com"
     client = StackMob::Client.new("http://#{StackMob.client_name}.stackmob.com", StackMob.app_name, StackMob.env, StackMob.key, StackMob.secret)
     deployer = StackMob::Deployer.new(client)
 

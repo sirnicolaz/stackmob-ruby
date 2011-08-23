@@ -55,8 +55,7 @@ module StackMob
     private :sm_app_version
     
     def sm_normalize_host(host_str)
-      normalized = host_str =~ /^http:\/\// ? "" : "http://"
-      normalized += host_str
+      "http://#{StackMob.client_name}.#{host_str}"
     end
     private :sm_normalize_host
 
