@@ -48,7 +48,7 @@ module StackMob
   end
 
   def self.dev_url
-    "http://#{StackMob.client_name}.stackmob.com"
+    "http://#{StackMob.client_name}.mob2.stackmob.com"
   end
 
   def self.env
