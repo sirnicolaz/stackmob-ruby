@@ -157,7 +157,9 @@ Add the following lines to your Rakefile in order to add the `stackmob:deploy` t
 
 ## Deploying
 
-Deploying your application only requires one additional step. After you have pushed your changes to Heroku you will need to run:
+In order to deploy your Rails application you will first need to deploy your StackMob API to production. To do so, go to the StackMob add-on page, click the deploy tab, and select "Deploy to Live API". Once on the deployment page, select "Create from Sandbox" for which snapshot to deploy and "API Version 1" for which version to deploy to. Add any comments in the deploy notes field and click deploy. 
+
+Deploying your Heroku application only requires one additional step. After you have pushed your changes to Heroku you will need to run:
 
     heroku run rake stackmob:deploy
 	
