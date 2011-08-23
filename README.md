@@ -6,7 +6,7 @@ This gem is meant to be used along with the StackMob add-on for Heroku. Using th
 
 Add the following to your Gemfile and run `bundle install`:
 
-    gem "stackmob-heroku", :require => "stackmob/rails"
+    gem "stackmob", :require => "stackmob/rails"
     
 ## Configuring Your Application    
     
@@ -115,7 +115,7 @@ You can also write your application using Sinatra. Create a Gemfile like the one
     source 'http://rubygems.org'
 	
 	gem 'sinatra'
-	gem 'stackmob-heroku', :require => 'stackmob/sinatra'
+	gem 'stackmob', :require => 'stackmob/sinatra'
 	
 In your `config.ru` file add the following line:
 
@@ -169,13 +169,13 @@ This rake task will inform the StackMob servers that you have deployed a new ver
 
 The railtie provided with this gem adds a simple oauth provider into the middleware stack. When making requests to your Rails or Sinatra application while its running locally you can either use the oauth gem, installed as a dependency to this one, with your public/private development keys in `config/stackmob.yml` or add the line `no_oauth: true` under the development section of the same config file. Adding the `no_oauth: true` line to `config/stackmob.yml` will only prevent verification of oauth keys locally. It will not turn off the middleware in production even if the option is specified under the production section of the config file. 
 
-## Contributing to stackmob-heroku
+## Contributing to stackmob gem
 
-stackmob-heroku is Apache 2.0 licensed (see LICENSE.txt) and we look forward to your contributions. 
+The stackmob Ruby Gem is Apache 2.0 licensed (see LICENSE.txt) and we look forward to your contributions. 
 
 ### Reporting Bugs
 
-We are using [GitHub Issues](https://github.com/stackmob/stackmob-heroku/issues) to track feature requests and bugs.
+We are using [GitHub Issues](https://github.com/stackmob/stackmob-ruby/issues) to track feature requests and bugs.
 
 ### Running the Tests
 
