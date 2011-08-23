@@ -1,4 +1,4 @@
-# stackmob-heroku
+# StackMob
 
 This gem is meant to be used along with the StackMob add-on for Heroku. Using this gem you can run your StackMob application's custom code on Heroku using Rails 3 & Sinatra (Rails 2.3.x Support Coming Soon).
 

@@ -15,7 +15,7 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "stackmob"
-  gem.homepage = "http://github.com/stackmob/stackmob-heroku"
+  gem.homepage = "http://github.com/stackmob/stackmob-ruby"
   gem.license = "MIT"
   gem.summary = "Support Gem for StackMob Heroku Add-On"
   gem.description = "Support Gem for StackMob Heroku Add-On"
