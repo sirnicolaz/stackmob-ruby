@@ -10,12 +10,12 @@ Add the following to your Gemfile and run `bundle install`:
     
 ## Configuring Your Application    
     
-The gem requires a few configuration details that need to be added to the file `config/stackmob.yml`. You will need the name of the application you created, as well as your public and private keys for both development (sandbox) and production from the StackMob add-on dashboard.
+The gem requires a few configuration details that need to be added to the file `config/stackmob.yml`. You will need the name of the application you created, as well as your public and private keys for both development (sandbox) and production from the StackMob add-on dashboard. When specifying your Heroku hostname, if your application is available under the herokuapp.com domain as well as heroku.com, use the herokuapp.com domain otherwise, use heroku.com. 
 
     # example config/stackmob.yml
 	sm_app_name: StackMob App Name
 	sm_client_name: Your StackMob Client Name
-    heroku_app_name: Heroku App Name
+    heroku_hostname: Full Hostname of Your Heroku Application (e.g. my-app.herokuapp.com)
 
     development:	
       key: Your StackMob Sandbox Public Key

@@ -19,11 +19,10 @@ namespace :stackmob do
   desc "Notify StackMob of a New Deploy"
   task :deploy do
 
-    app_name = StackMob.config['heroku_app_name']
-    exit("No Heroku App Name Found in StackMob Config") if app_name.blank?
-    exit("No Client Name Found in StackMob Config") if StackMob.client_name.blank?
-    
-    hostname = "#{app_name}.herokuapp.com"
+    abort("No Client Name Found in StackMob Config") if StackMob.client_name.blank?
+    abort("No Heroku App Name or Hostname Found in StackMob Config") if StackMob.config['heroku_app_name'].to_s.blank? && StackMob.config['heroku_hostname'].to_s.blank?
+
+    hostname = StackMob.config['heroku_hostname'] || "#{StackMob.config['heroku_app_name']}.herokuapp.com"
     client = StackMob::Client.new("http://#{StackMob.client_name}.mob2.stackmob.com", StackMob.app_name, StackMob::SANDBOX, StackMob.config['development']['key'], StackMob.config['development']['key'])
     deployer = StackMob::Deployer.new(client)
 
