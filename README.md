@@ -165,6 +165,14 @@ Deploying your Heroku application only requires one additional step. After you h
 	
 This rake task will inform the StackMob servers that you have deployed a new version of your application as well as update any information that may be needed to proxy requests to your application.
 
+Once your API & Application are deployed, you can, of course, start using it with the [StackMob iOS SDK](https://github.com/stackmob/StackMob_iOS) but if you would like to take things for a test drive, you can also use `StackMob::Client`. Create a client to use your production keys like the example below:
+
+    client = StackMob::Client.new(StackMob.dev_url, StackMob.app_name, StackMob::PRODUCTION, StackMob.config['production']['key'], StackMob.config['production']['secret'])
+
+You can then proxy requests to your application using the `StackMob::Client#request`:
+
+    client.request(:get, :api, "heroku/proxy/path/to/proxy/to")
+
 ## Running your Application Locally in Development
 
 The railtie provided with this gem adds a simple oauth provider into the middleware stack. When making requests to your Rails or Sinatra application while its running locally you can either use the oauth gem, installed as a dependency to this one, with your public/private development keys in `config/stackmob.yml` or add the line `no_oauth: true` under the development section of the same config file. Adding the `no_oauth: true` line to `config/stackmob.yml` will only prevent verification of oauth keys locally. It will not turn off the middleware in production even if the option is specified under the production section of the config file. 
