@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{StackMob}]
-  s.date = %q{2011-08-23}
+  s.date = %q{2011-08-24}
   s.description = %q{Support Gem for StackMob Heroku Add-On}
   s.email = %q{jordan@stackmob.com}
   s.extra_rdoc_files = [
@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
     "lib/stackmob/railtie.rb",
     "lib/stackmob/sinatra.rb",
     "lib/stackmob/tasks.rb",
+    "stackmob.gemspec",
     "test/helper.rb",
     "test/integration/test_client.rb",
     "test/integration/test_data_store.rb",
