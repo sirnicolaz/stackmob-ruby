@@ -11,7 +11,7 @@ class StackMobIntegrationTest < MiniTest::Unit::TestCase
   end
   
   def sm_app_name
-    "angrybirds3"
+    "ruby_test"
   end
 
   def setup

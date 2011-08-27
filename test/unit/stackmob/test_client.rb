@@ -82,7 +82,7 @@ class StackmobClientTest < MiniTest::Unit::TestCase
     path = "user"
     @good_resp.stubs(:code).returns(201)
 
-    valid_client._oauth.expects(:post).with("/#{service}/#{app_vsn}/#{app_name}/#{path}", Yajl::Encoder.encode(test_params)).returns(@good_resp)
+    valid_client._oauth.expects(:post).with("/#{service}/#{app_vsn}/#{app_name}/#{path}", Yajl::Encoder.encode(test_params), "Content-Type" => "application/json").returns(@good_resp)
     valid_client.request(:post, service, path, test_params)
   end
 
@@ -98,7 +98,7 @@ class StackmobClientTest < MiniTest::Unit::TestCase
     service = :some_service
     path = "abc"
     
-    valid_client._oauth.expects(:put).with("/#{service}/#{app_vsn}/#{app_name}/#{path}", Yajl::Encoder.encode(test_params)).returns(@good_resp)
+    valid_client._oauth.expects(:put).with("/#{service}/#{app_vsn}/#{app_name}/#{path}", Yajl::Encoder.encode(test_params), "Content-Type" => "application/json").returns(@good_resp)
     valid_client.request(:put, service, path, test_params)
   end
 
