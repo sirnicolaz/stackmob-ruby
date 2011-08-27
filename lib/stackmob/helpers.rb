@@ -54,8 +54,9 @@ module StackMob
     end
     private :sm_app_version
     
-    def sm_normalize_host(host_str)
-      "http://#{StackMob.client_name}.#{host_str}"
+    def sm_normalize_host(host_str)      
+      schemeless = host_str.gsub(/^https?:\/\//, "")
+      "http://#{StackMob.client_name}.#{schemeless}"
     end
     private :sm_normalize_host
 
