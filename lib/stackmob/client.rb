@@ -36,7 +36,9 @@ module StackMob
     def request(method, service, path, params = {})
       request_path, request_body = generate_path_and_body(method, service, path, params)
 
-      response = @oauth_client.send(method, request_path, request_body)
+      args = [method, request_path, request_body]
+      args << {"Content-Type" => "application/json"} if [:post, :put].include?(method)
+      response = @oauth_client.send(*args)
 
       rcode = response.code.to_i
       if rcode >= 200 && rcode <= 299
