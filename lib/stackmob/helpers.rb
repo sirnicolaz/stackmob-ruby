@@ -40,7 +40,7 @@ module StackMob
     
     def sm_hostname_from_header_or_config(header_str)
       hostname = request.env[header_str]
-      (hostname.nil? || hostname == "") ? StackMob.dev_url : hostname
+      (hostname.nil? || hostname == "") ? StackMob.dev_url : [StackMob.client_name, hostname].join(".")
     end
     private :sm_hostname_from_header_or_config
 
@@ -54,9 +54,9 @@ module StackMob
     end
     private :sm_app_version
     
-    def sm_normalize_host(host_str)      
+    def sm_normalize_host(host_str)
       schemeless = host_str.gsub(/^https?:\/\//, "")
-      "http://#{StackMob.client_name}.#{schemeless}"
+      "http://#{schemeless}"
     end
     private :sm_normalize_host
 
