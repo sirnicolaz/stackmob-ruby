@@ -16,7 +16,7 @@ Additionally, you will want to include some helpful methods in your controllers.
 
 This section only pertains to setting up your Rails or Sinatra application for development & testing. If you wish solely to deploy to Heroku you can skip this section. 
     
-For local development, a few configuration details that to be set in the file `config/stackmob.yml`. You will need your subdomain, the name of the application you created, as well as your public and private keys for both development (sandbox) and production from the StackMob add-on dashboard. When specifying your Heroku hostname, if your application is available under the herokuapp.com domain as well as heroku.com, use the herokuapp.com domain otherwise, use heroku.com. 
+For local development, a few configuration details need to be set in the file `config/stackmob.yml`. You will need your subdomain, the name of the application you created, as well as your public and private keys for both development (sandbox) and production from the StackMob add-on dashboard. When specifying your Heroku hostname, if your application is available under the herokuapp.com domain as well as heroku.com, use the herokuapp.com domain otherwise, use heroku.com. 
 
     # example config/stackmob.yml
 	sm_app_name: StackMob App Name
