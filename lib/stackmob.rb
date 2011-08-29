@@ -32,19 +32,19 @@ module StackMob
   end
   
   def self.secret
-    StackMob.config[sm_env_str]['secret']
+    ENV[sm_env_key_str(:private_key)] || StackMob.config[sm_env_str]['secret']
   end
 
   def self.key
-    StackMob.config[sm_env_str]['key']
+    ENV[sm_env_key_str(:public_key)] || StackMob.config[sm_env_str]['key']
   end
 
   def self.app_name
-    StackMob.config['sm_app_name']
+    ENV['STACKMOB_APP_NAME'] || StackMob.config['sm_app_name']
   end
 
   def self.client_name
-    StackMob.config['sm_client_name']
+    ENV['STACKMOB_CLIENT_NAME'] || StackMob.config['sm_client_name']
   end
 
   def self.dev_url
@@ -61,6 +61,10 @@ module StackMob
 
   def self.is_production?
     ENV["RACK_ENV"] == "production"
+  end
+
+  def self.sm_env_key_str(suffix)
+    "STACKMOB_" + ((is_production?) ? "PROD" : "SAND") + "_#{suffix.upcase}"
   end
 
 

@@ -7,10 +7,16 @@ This gem is meant to be used along with the StackMob add-on for Heroku. Using th
 Add the following to your Gemfile and run `bundle install`:
 
     gem "stackmob", :require => "stackmob/rails"
+	
+Additionally, you will want to include some helpful methods in your controllers. Add the line below to the `ApplicationController`. Check out "Interacting With Your API in Your Application" for more  details about the methods provided by StackMob::Helpers.
+
+    include StackMob::Helpers 
+	    
+## Configuring Your Application (For Local Development)
+
+This section only pertains to setting up your Rails or Sinatra application for development & testing. If you wish solely to deploy to Heroku you can skip this section. 
     
-## Configuring Your Application    
-    
-The gem requires a few configuration details that need to be added to the file `config/stackmob.yml`. You will need the name of the application you created, as well as your public and private keys for both development (sandbox) and production from the StackMob add-on dashboard. When specifying your Heroku hostname, if your application is available under the herokuapp.com domain as well as heroku.com, use the herokuapp.com domain otherwise, use heroku.com. 
+For local development, a few configuration details that to be set in the file `config/stackmob.yml`. You will need your subdomain, the name of the application you created, as well as your public and private keys for both development (sandbox) and production from the StackMob add-on dashboard. When specifying your Heroku hostname, if your application is available under the herokuapp.com domain as well as heroku.com, use the herokuapp.com domain otherwise, use heroku.com. 
 
     # example config/stackmob.yml
 	sm_app_name: StackMob App Name
@@ -24,10 +30,8 @@ The gem requires a few configuration details that need to be added to the file `
     production:	
       key: Your StackMob Production Public Key
       secret: Your StackMob Production Private Key
-    
-Additionally, you will want to include some helpful methods in your controllers. Add the line below to the `ApplicationController`. Check out "Interacting With Your API in Your Application" for more  details about the methods provided by StackMob::Helpers.
-
-    include StackMob::Helpers 
+    	
+The railtie provided with this gem adds a simple oauth provider into the middleware stack. When making requests to your Rails or Sinatra application while its running locally you can either use the oauth gem, installed as a dependency to this one, with your public/private development keys in `config/stackmob.yml` or add the line `no_oauth: true` under the development section of the same config file. Adding the `no_oauth: true` line to `config/stackmob.yml` will only prevent verification of oauth keys locally. It will not turn off the middleware in production even if the option is specified under the production section of the config file. 
 
 ## Interacting with CRUD from the Console
 
@@ -175,7 +179,7 @@ You can then proxy requests to your application using the `StackMob::Client#requ
 
 ## Running your Application Locally in Development
 
-The railtie provided with this gem adds a simple oauth provider into the middleware stack. When making requests to your Rails or Sinatra application while its running locally you can either use the oauth gem, installed as a dependency to this one, with your public/private development keys in `config/stackmob.yml` or add the line `no_oauth: true` under the development section of the same config file. Adding the `no_oauth: true` line to `config/stackmob.yml` will only prevent verification of oauth keys locally. It will not turn off the middleware in production even if the option is specified under the production section of the config file. 
+
 
 ## Contributing to stackmob gem
 
