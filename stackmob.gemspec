@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{StackMob}]
-  s.date = %q{2011-08-24}
+  s.date = %q{2011-08-29}
   s.description = %q{Support Gem for StackMob Heroku Add-On}
   s.email = %q{jordan@stackmob.com}
   s.extra_rdoc_files = [
