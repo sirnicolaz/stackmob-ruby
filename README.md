@@ -1,6 +1,8 @@
 # StackMob
 
-This gem is meant to be used along with the StackMob add-on for Heroku. Using this gem you can run your StackMob application's custom code on Heroku using Rails 3 & Sinatra (Rails 2.3.x Support Coming Soon).
+This gem is meant to be used along with the StackMob add-on for Heroku. Using this gem you can extend your StackMob REST API using a Rails 3 or Sinatra application (Rails 2.3.x Support Coming Soon) deployed on Heroku. 
+
+When you deploy your application your routes will become available via the production version of your StackMob API. StackMob will proxy any API call of the form `http://[SUBDOMAIN].mob2.stackmob.com/api/[VERSION]/[APPNAME]/heroku/proxy/[ROUTE]` to your Heroku application. 
 
 ## Adding StackMob to your Rails 3 Application
 
