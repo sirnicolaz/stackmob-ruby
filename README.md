@@ -179,9 +179,6 @@ You can then proxy requests to your application using the `StackMob::Client#requ
 
     client.request(:get, :api, "heroku/proxy/path/to/proxy/to")
 
-## Running your Application Locally in Development
-
-
 
 ## Contributing to stackmob gem
 
