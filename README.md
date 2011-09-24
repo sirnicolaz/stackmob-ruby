@@ -171,7 +171,7 @@ Deploying your Heroku application only requires one additional step. After you h
 	
 This rake task will inform the StackMob servers that you have deployed a new version of your application as well as update any information that may be needed to proxy requests to your application.
 
-Once your API & Application are deployed, you can, of course, start using it with the [StackMob iOS SDK](https://github.com/stackmob/StackMob_iOS) but if you would like to take things for a test drive, you can also use `StackMob::Client`. Create a client to use your production keys like the example below:
+Once your API & Application are deployed, you can, of course, start using it with the <a href="https://github.com/stackmob/StackMob_iOS">StackMob iOS SDK</a> but if you would like to take things for a test drive, you can also use `StackMob::Client`. Create a client to use your production keys like the example below:
 
     client = StackMob::Client.new(StackMob.dev_url, StackMob.app_name, StackMob::PRODUCTION, StackMob.config['production']['key'], StackMob.config['production']['secret'])
 
@@ -186,7 +186,7 @@ The stackmob Ruby Gem is Apache 2.0 licensed (see LICENSE.txt) and we look forwa
 
 ### Reporting Bugs
 
-We are using [GitHub Issues](https://github.com/stackmob/stackmob-ruby/issues) to track feature requests and bugs.
+We are using <a href="https://github.com/stackmob/stackmob-ruby/issues">GitHub Issues</a> to track feature requests and bugs.
 
 ### Running the Tests
 
