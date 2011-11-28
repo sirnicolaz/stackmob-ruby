@@ -192,7 +192,7 @@ We are using <a href="https://github.com/stackmob/stackmob-ruby/issues">GitHub I
 
 Before submitting a pull request add any appropriate tests and run them along with the existing ones. The gem includes tasks to run unit & integration tests seperately or together. Before running the integration tests you will need to setup a few things. First, create a new application on your StackMob account named "test". In the new application, create a User Object named "user", with one extra string field, "name". Finally, you will have to set a few environment variables. If your using RVM, a good place to put these is your .rvmrc file.
 
-    export STACKMOB_TEST_URL="YOURDOMAIN.stackmob.com"
+    export STACKMOB_TEST_URL="http://YOURDOMAIN.stackmob.com"
     export STACKMOB_TEST_KEY="YOUR TEST APP PUB KEY"
     export STACKMOB_TEST_SECRET="YOUR TEST APP PRIV KEY"
     
