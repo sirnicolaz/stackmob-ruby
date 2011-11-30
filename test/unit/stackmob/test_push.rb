@@ -36,7 +36,18 @@ class StackMobPushTest < MiniTest::Unit::TestCase
     @push.broadcast(:badge => badge, :sound => sound, :alert => alert)
   end
 
-  def test_send_messsage_to_tokens
+  def test_send_messsage_to_a_token
+    message = "some message"
+    android_token = { "type" => "android", "token" => "abc" }
+
+    expected_body = {:tokens => [android_token],
+      :payload => { :kvPairs => {:message => message}}}
+    expected_params = [:post, :push, "/push_tokens_universal", expected_body]
+    @mock_client.expects(:request).with(*expected_params).returns(nil)
+    @push.send_message_to_tokens(android_token, :message => message)
+  end
+
+  def test_send_messsage_to_two_tokens
     sound = "testsound.mp3"
     alert = "Single Message"
     badge = 2
@@ -50,7 +61,7 @@ class StackMobPushTest < MiniTest::Unit::TestCase
           :other => other_message} }}
     expected_params = [:post, :push, "/push_tokens_universal", expected_body]
     @mock_client.expects(:request).with(*expected_params).returns(nil)
-    @push.send_message([ios_token, android_token], :alert => alert, :audio => sound, :badge => badge, :other => other_message)
+    @push.send_message_to_tokens([ios_token, android_token], :alert => alert, :audio => sound, :badge => badge, :other => other_message)
   end
 
   def test_send_messsage_with_an_user_id
@@ -66,7 +77,7 @@ class StackMobPushTest < MiniTest::Unit::TestCase
           :other => other_message}}
     expected_params = [:post, :push, "/push_users_universal", expected_body]
     @mock_client.expects(:request).with(*expected_params).returns(nil)
-    @push.send_message(user, :alert => alert, :audio => sound, :badge => badge, :other => other_message)
+    @push.send_message_to_users(user, :alert => alert, :audio => sound, :badge => badge, :other => other_message)
   end
 
 end

@@ -45,6 +45,7 @@ module StackMob
     end
 
     def send_message_to_tokens(to, opts)
+      to = [to] if to.is_a? Hash
       payload = {:tokens => Array(to), :payload => { :kvPairs => opts }}
       self.client.request(:post, PUSH_SVC, PUSH_TOKENS_PATH, payload)
     end
@@ -53,16 +54,5 @@ module StackMob
       payload = {:userIds => Array(to), :kvPairs => opts}
       self.client.request(:post, PUSH_SVC, PUSH_USERS_PATH, payload)
     end
-
-    def send_message(to, opts)
-      if to.is_a? Hash
-        send_message_to_tokens([to], opts)
-      elsif Array(to).all?{ |e| e.is_a? Hash }
-        send_message_to_tokens(to, opts)
-      else
-        send_message_to_users(to, opts)
-      end
-    end
-
   end
 end
