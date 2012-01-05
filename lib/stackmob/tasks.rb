@@ -23,7 +23,7 @@ namespace :stackmob do
     abort("No Heroku App Name or Hostname Found in StackMob Config") if StackMob.config['heroku_app_name'].to_s.blank? && StackMob.config['heroku_hostname'].to_s.blank?
 
     hostname = StackMob.config['heroku_hostname'] || "#{StackMob.config['heroku_app_name']}.herokuapp.com"
-    client = StackMob::Client.new("http://#{StackMob.client_name}.mob2.stackmob.com", StackMob.app_name, StackMob::SANDBOX, StackMob.config['development']['key'], StackMob.config['development']['key'])
+    client = StackMob::Client.new("http://#{StackMob.client_name}.mob2.stackmob.com", StackMob.app_name, StackMob::SANDBOX, StackMob.config['development']['key'], StackMob.config['development']['secret'])
     deployer = StackMob::Deployer.new(client)
 
     begin
