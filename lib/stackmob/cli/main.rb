@@ -22,9 +22,10 @@ module StackMob
       include LocalServer
 
       method_option "port", :type => :string, :banner => "port to start server on", :aliases => "-p", :default => "4567"
+      method_option "path", :type => :string, :banner => "root directory to serve files from", :default => "."
       desc "server", "start test server"
       def server
-        start_local_server(options[:port])
+        start_local_server(options[:port], options[:path])
       end
 
     end

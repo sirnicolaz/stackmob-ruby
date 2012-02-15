@@ -40,12 +40,12 @@ module StackMob
         end      
       end
       
-      def start_local_server(port = DEFAULT_PORT)
+      def start_local_server(port = DEFAULT_PORT, path_root = '.')
         app = ::Rack::Builder.new do 
           use StackMob::Middleware::Proxy
           use StackMob::Middleware::Rewrite
 
-          endpoint = ::Rack::Static.new lambda { |e| [] }, :urls => ['/'], :root => '.'
+          endpoint = ::Rack::Static.new lambda { |e| [] }, :urls => ['/'], :root => path_root
           map "/" do 
             run endpoint
           end
