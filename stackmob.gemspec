@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "stackmob"
-  s.version = "0.0.2"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["StackMob"]
-  s.date = "2012-02-14"
+  s.date = "2012-02-15"
   s.description = "Support Gem for StackMob Heroku Add-On"
   s.email = "jordan@stackmob.com"
   s.executables = ["stackmob"]
@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
     "lib/stackmob.rb",
     "lib/stackmob/cli/local_server.rb",
     "lib/stackmob/cli/main.rb",
-    "lib/stackmob/cli/settings.rb",
     "lib/stackmob/client.rb",
     "lib/stackmob/data_store.rb",
     "lib/stackmob/deployer.rb",
