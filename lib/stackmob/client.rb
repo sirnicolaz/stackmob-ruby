@@ -33,18 +33,28 @@ module StackMob
       create_oauth_client(oauth_key, oauth_secret, base_url)
     end
 
-    def request(method, service, path, params = {})
-      request_path, request_body = generate_path_and_body(method, service, path, params)
+    def request(method, service, path, params = {}, raw = false, headers = {})
+      request_path, request_body = generate_path_and_body(method, service, path, params, raw)
 
-      args = [method, request_path, request_body]
-      args << {"Content-Type" => "application/json"} if [:post, :put].include?(method)
+      args = [method, request_path]
+      if [:post, :put].include?(method)
+        headers.merge!("Content-Type" => "application/json") 
+        args << request_body << headers
+      else
+        args << headers
+      end
+
       response = @oauth_client.send(*args)
 
-      rcode = response.code.to_i
-      if rcode >= 200 && rcode <= 299
-        parse_response(response) if method != :delete
+      if raw
+        response
       else
-        raise RequestError.new("\nReq Method: #{method}\nReq. Path: #{request_path}\nReq. Body: #{request_body}\nResp. Code: #{rcode}, Resp Body: #{response.respond_to?(:body) ? response.body : 'unknown'}")
+        rcode = response.code.to_i
+        if rcode >= 200 && rcode <= 299
+          parse_response(response) if method != :delete
+        else
+          raise RequestError.new("\nReq Method: #{method}\nReq. Path: #{request_path}\nReq. Body: #{request_body}\nResp. Code: #{rcode}, Resp Body: #{response.respond_to?(:body) ? response.body : 'unknown'}")
+        end
       end
     end
 
@@ -53,13 +63,13 @@ module StackMob
     end
     private :create_oauth_client
 
-    def generate_path_and_body(method, service, path, params)
+    def generate_path_and_body(method, service, path, params, raw)
       intermediate_path = full_path(service, path)
       case method
       when :get, :delete
-        [intermediate_path + "?" + params_to_qs(params), ""]
+        [intermediate_path + "?" + (raw ? params : params_to_qs(params)), ""]
       when :post, :put
-        [intermediate_path, Yajl::Encoder.encode(params)]
+        [intermediate_path, raw ? params : Yajl::Encoder.encode(params)]
       else
         raise InvalidRequestMethod
       end

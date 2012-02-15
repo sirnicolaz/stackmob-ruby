@@ -4,56 +4,44 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{stackmob}
+  s.name = "stackmob"
   s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = [%q{StackMob}]
-  s.date = %q{2011-09-12}
-  s.description = %q{Support Gem for StackMob Heroku Add-On}
-  s.email = %q{jordan@stackmob.com}
+  s.authors = ["StackMob"]
+  s.date = "2012-02-14"
+  s.description = "Support Gem for StackMob Heroku Add-On"
+  s.email = "jordan@stackmob.com"
+  s.executables = ["stackmob"]
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.md"
   ]
   s.files = [
-    ".document",
-    "Gemfile",
-    "Gemfile.lock",
     "LICENSE.txt",
     "README.md",
-    "Rakefile",
-    "VERSION",
     "lib/stackmob.rb",
+    "lib/stackmob/cli/local_server.rb",
+    "lib/stackmob/cli/main.rb",
+    "lib/stackmob/cli/settings.rb",
     "lib/stackmob/client.rb",
     "lib/stackmob/data_store.rb",
     "lib/stackmob/deployer.rb",
     "lib/stackmob/helpers.rb",
+    "lib/stackmob/middleware/proxy.rb",
+    "lib/stackmob/middleware/rewrite.rb",
     "lib/stackmob/push.rb",
     "lib/stackmob/rack/simple_oauth_provider.rb",
     "lib/stackmob/rails.rb",
     "lib/stackmob/railtie.rb",
     "lib/stackmob/sinatra.rb",
-    "lib/stackmob/tasks.rb",
-    "stackmob.gemspec",
-    "test/helper.rb",
-    "test/integration/test_client.rb",
-    "test/integration/test_data_store.rb",
-    "test/integration/test_deployer.rb",
-    "test/integration/test_push.rb",
-    "test/integration_helper.rb",
-    "test/unit/stackmob/rack/test_simple_oauth_provider.rb",
-    "test/unit/stackmob/test_client.rb",
-    "test/unit/stackmob/test_data_store.rb",
-    "test/unit/stackmob/test_deployer.rb",
-    "test/unit/stackmob/test_push.rb",
-    "test/unit/test_stackmob.rb"
+    "lib/stackmob/tasks.rb"
   ]
-  s.homepage = %q{http://github.com/stackmob/stackmob-ruby}
-  s.licenses = [%q{MIT}]
-  s.require_paths = [%q{lib}]
-  s.rubygems_version = %q{1.8.6}
-  s.summary = %q{Support Gem for StackMob Heroku Add-On}
+  s.homepage = "http://github.com/stackmob/stackmob-ruby"
+  s.licenses = ["MIT"]
+  s.require_paths = ["lib"]
+  s.rubygems_version = "1.8.15"
+  s.summary = "Support Gem for StackMob Heroku Add-On"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
@@ -61,7 +49,10 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<oauth>, ["~> 0.4.5"])
       s.add_runtime_dependency(%q<yajl-ruby>, ["~> 0.8.2"])
-      s.add_development_dependency(%q<minitest>, [">= 0"])
+      s.add_runtime_dependency(%q<thor>, ["~> 0.14.0"])
+      s.add_runtime_dependency(%q<thin>, ["~> 1.2.0"])
+      s.add_runtime_dependency(%q<rack>, ["~> 1.3.0"])
+      s.add_development_dependency(%q<minitest>, ["~> 2.11.0"])
       s.add_development_dependency(%q<yard>, ["~> 0.6.0"])
       s.add_development_dependency(%q<cucumber>, [">= 0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
@@ -70,10 +61,14 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<mocha>, [">= 0"])
       s.add_development_dependency(%q<rack-test>, [">= 0"])
       s.add_development_dependency(%q<bluecloth>, [">= 0"])
+      s.add_development_dependency(%q<httpclient>, ["~> 2.2.4"])
     else
       s.add_dependency(%q<oauth>, ["~> 0.4.5"])
       s.add_dependency(%q<yajl-ruby>, ["~> 0.8.2"])
-      s.add_dependency(%q<minitest>, [">= 0"])
+      s.add_dependency(%q<thor>, ["~> 0.14.0"])
+      s.add_dependency(%q<thin>, ["~> 1.2.0"])
+      s.add_dependency(%q<rack>, ["~> 1.3.0"])
+      s.add_dependency(%q<minitest>, ["~> 2.11.0"])
       s.add_dependency(%q<yard>, ["~> 0.6.0"])
       s.add_dependency(%q<cucumber>, [">= 0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
@@ -82,11 +77,15 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<mocha>, [">= 0"])
       s.add_dependency(%q<rack-test>, [">= 0"])
       s.add_dependency(%q<bluecloth>, [">= 0"])
+      s.add_dependency(%q<httpclient>, ["~> 2.2.4"])
     end
   else
     s.add_dependency(%q<oauth>, ["~> 0.4.5"])
     s.add_dependency(%q<yajl-ruby>, ["~> 0.8.2"])
-    s.add_dependency(%q<minitest>, [">= 0"])
+    s.add_dependency(%q<thor>, ["~> 0.14.0"])
+    s.add_dependency(%q<thin>, ["~> 1.2.0"])
+    s.add_dependency(%q<rack>, ["~> 1.3.0"])
+    s.add_dependency(%q<minitest>, ["~> 2.11.0"])
     s.add_dependency(%q<yard>, ["~> 0.6.0"])
     s.add_dependency(%q<cucumber>, [">= 0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
@@ -95,6 +94,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<mocha>, [">= 0"])
     s.add_dependency(%q<rack-test>, [">= 0"])
     s.add_dependency(%q<bluecloth>, [">= 0"])
+    s.add_dependency(%q<httpclient>, ["~> 2.2.4"])
   end
 end
 

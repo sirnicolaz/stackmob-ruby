@@ -73,7 +73,7 @@ class StackmobClientTest < MiniTest::Unit::TestCase
     service = :some_service
     path = "user"
 
-    valid_client._oauth.expects(:get).with("/#{service}/#{app_vsn}/#{app_name}/#{path}?abc=123&def=456", "").returns(@good_resp)
+    valid_client._oauth.expects(:get).with("/#{service}/#{app_vsn}/#{app_name}/#{path}?abc=123&def=456", {}).returns(@good_resp)
     valid_client.request(:get, service, path, test_params)
   end
 
@@ -90,7 +90,7 @@ class StackmobClientTest < MiniTest::Unit::TestCase
     service = :a_service
     path = "abc"
     
-    valid_client._oauth.expects(:delete).with("/#{service}/#{app_vsn}/#{app_name}/#{path}?something=123", "").returns(@good_resp)
+    valid_client._oauth.expects(:delete).with("/#{service}/#{app_vsn}/#{app_name}/#{path}?something=123", {}).returns(@good_resp)
     valid_client.request(:delete, service, path, something: "123")
   end
 

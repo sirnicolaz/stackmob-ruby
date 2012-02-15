@@ -21,6 +21,8 @@ Jeweler::Tasks.new do |gem|
   gem.description = "Support Gem for StackMob Heroku Add-On"
   gem.email = "jordan@stackmob.com"
   gem.authors = ["StackMob"]
+  gem.executables = ['stackmob']
+  gem.files = Dir["lib/**/*.rb"] + Dir["*.md"] + Dir["*.txt"]
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
@@ -41,6 +43,12 @@ namespace :test do
     test.pattern = 'test/integration/**/test_*.rb'
     test.verbose = true
   end
+
+  Rake::TestTask.new(:cli) do |test|
+    test.libs << 'lib' << 'test'
+    test.pattern = 'test/cli/**/test_*.rb'
+    test.verbose = true
+  end			   
 
   Rcov::RcovTask.new do |test|
     test.libs << 'test'

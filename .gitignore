@@ -49,3 +49,5 @@ pkg
 
 # For RVM
 .rvmrc
+
+tmp/

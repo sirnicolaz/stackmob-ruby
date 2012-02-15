@@ -21,14 +21,31 @@ require 'stackmob/data_store'
 require 'stackmob/push'
 require 'stackmob/rack/simple_oauth_provider'
 require 'stackmob/helpers'
+require 'stackmob/cli/main'
 
 module StackMob
   
+  CONFIG_FILES = ["config/stackmob.yml",".stackmob"]
+
+  class ConfigurationError < RuntimeError; end
+    
+
   SANDBOX = 0
   PRODUCTION = 1
     
   def self.config
-    @config ||= YAML.load_file("config/stackmob.yml")
+    @config ||= load_config(CONFIG_FILES.clone)
+
+  end
+
+  def self.load_config(filenames)
+    YAML.load_file(filenames.shift)
+  rescue Errno::ENOENT    
+    if !filenames.empty? 
+      load_config(filenames) 
+    else
+      raise ConfigurationError.new("Missing configuration file (#{CONFIG_FILES.join(' or ')})")
+    end
   end
   
   def self.secret
@@ -47,8 +64,13 @@ module StackMob
     ENV['STACKMOB_CLIENT_NAME'] || StackMob.config['sm_client_name']
   end
 
-  def self.dev_url
-    "http://#{StackMob.client_name}.mob2.stackmob.com"
+  def self.dev_url    
+    if env_url = ENV['STACKMOB_DEV_URL']
+      env_url
+    else
+      cluster_name = (is_html5?) ?  "mob1" : "mob2"
+      "http://#{StackMob.client_name}.#{cluster_name}.stackmob.com"
+    end
   end
 
   def self.env
@@ -59,12 +81,16 @@ module StackMob
     env == PRODUCTION ? "production" : "development"
   end
 
+  def self.is_html5?
+    config['html5']
+  end
+
   def self.is_production?
     ENV["RACK_ENV"] == "production"
   end
 
   def self.sm_env_key_str(suffix)
-    "STACKMOB_" + ((is_production?) ? "PROD" : "SAND") + "_#{suffix.upcase}"
+    "STACKMOB_" + ((is_production?) ? "PROD" : "SAND") + "_#{suffix.to_s.upcase}"
   end
 
 
