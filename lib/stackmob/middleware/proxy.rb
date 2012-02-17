@@ -22,7 +22,7 @@ module StackMob
       RACK_ENV_NAME = 'HTTP_X_STACKMOB_PROXY'
       VALID_HEADER_VALUES = ['stackmob-api']
 
-      EXCLUDED_HEADERS = ["VERSION", "DATE", "HOST"].map { |s| "HTTP_#{s}" }
+      EXCLUDED_HEADERS = ["VERSION", "DATE", "HOST", "ACCEPT"].map { |s| "HTTP_#{s}" }
 
       def initialize(app)
         @app = app
