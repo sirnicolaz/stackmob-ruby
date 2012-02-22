@@ -18,9 +18,11 @@ module StackMob
     attr_accessor :client
 
     PUSH_SVC = :push
-    DEVICE_TOKEN_PATH = "/device_tokens"
-    BROADCAST_PATH = "/push_broadcast"
-    PUSH_PATH = "/push"
+    DEVICE_TOKEN_PATH = "/register_device_token_universal"
+    REMOVE_DEVICE_TOKEN = "/remove_token_universal"
+    BROADCAST_PATH = "/push_broadcast_universal"
+    PUSH_TOKENS_PATH = "/push_tokens_universal"
+    PUSH_USERS_PATH = "/push_users_universal"
 
     DEFAULT_BADGE = 0
     DEFAULT_SOUND = ""
@@ -33,31 +35,24 @@ module StackMob
       self.client.request(:post, PUSH_SVC, DEVICE_TOKEN_PATH, :userId => user_id, :token => device_token) # using non-convential symbols to conform to StackMob Push API
     end
 
-    def broadcast(opts)
-      aps_data = generate_aps_data(opts)
-      payload = {:recipients => [], :aps => aps_data, :areRecipientsDeviceTokens => true, :exclude_tokens => []}
+    def remove(device_token)
+      self.client.request(:post, PUSH_SVC, REMOVE_DEVICE_TOKEN, device_token)
+    end
 
+    def broadcast(opts)
+      payload = { :kvPairs => opts }
       self.client.request(:post, PUSH_SVC, BROADCAST_PATH, payload)
     end
 
-    def send_message(to, opts)
-      aps_data = generate_aps_data(opts)
-      recipients_are_device_tokens = (opts[:recipients_are_users]) ? false : true
-      payload = {:recipients => Array(to), :aps => aps_data, :areRecipientsDeviceTokens => recipients_are_device_tokens, :exclude_tokens => []}
-
-      self.client.request(:post, PUSH_SVC, PUSH_PATH, payload)
+    def send_message_to_tokens(to, opts)
+      to = [to] if to.is_a? Hash
+      payload = {:tokens => Array(to), :payload => { :kvPairs => opts }}
+      self.client.request(:post, PUSH_SVC, PUSH_TOKENS_PATH, payload)
     end
 
-    def generate_aps_data(opts)
-      alert = opts[:alert] || (raise ArgumentError.new("Push requires alert message"))
-      badge = opts[:badge] || DEFAULT_BADGE
-      sound = opts[:sound] || DEFAULT_SOUND
-      
-      {:badge => badge, :sound => sound, :alert => alert}
+    def send_message_to_users(to, opts)
+      payload = {:userIds => Array(to), :kvPairs => opts}
+      self.client.request(:post, PUSH_SVC, PUSH_USERS_PATH, payload)
     end
-    private :generate_aps_data
-
-    
-
   end
 end
