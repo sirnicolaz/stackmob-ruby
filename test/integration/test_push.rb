@@ -18,9 +18,9 @@ class PushIntegrationTest < StackMobIntegrationTest
 
     @push.broadcast(:badge => 1, :sound => "audiofile.mpg", :alert => "My Push Message to all")   
 
-    @push.send_message(@user_id, :sound => "anotherfile.mpg", :alert => "Ruby Gem Says: hi #{@user_id}", :badge => 2)
+    @push.send_message_to_users(@user_id, :sound => "anotherfile.mpg", :alert => "Ruby Gem Says: hi #{@user_id}", :badge => 2)
 
-    @push.send_message(@device_token, :alert => "Ruby Gem: This is a message for token: #{@device_token}")
+    @push.send_message_to_tokens(@device_token, :alert => "Ruby Gem: This is a message for token: #{@device_token}")
   end
 
 end
