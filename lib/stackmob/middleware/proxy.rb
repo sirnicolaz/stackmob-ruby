@@ -56,12 +56,16 @@ module StackMob
         headers = {}
         for headerArr in env.select { |k, v| k.start_with? 'HTTP_' } 
           if !EXCLUDED_HEADERS.include?(headerArr[0])
-            headers[headerArr[0].sub('HTTP_', '')] = headerArr[1]
+            headers[normalize(headerArr[0])] = headerArr[1]
           end
         end
         headers["Accept"] = "application/json"
         headers
       end
+
+      def normalize(key)
+        key.sub('HTTP_', '').split('_').map! { |p| p.downcase }.join("-")
+      end 
 
     end
   end
