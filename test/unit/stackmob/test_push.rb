@@ -80,4 +80,11 @@ class StackMobPushTest < MiniTest::Unit::TestCase
     @push.send_message_to_users(user, :alert => alert, :audio => sound, :badge => badge, :other => other_message)
   end
 
+  def test_get_tokens_for_users
+    user_ids = [1,2]
+    expected_params = [:get, :push, "/get_tokens_for_users_universal", {:userIds => "1,2"}]
+    @mock_client.expects(:request).with(*expected_params).returns(nil)
+    @push.get_tokens_for_users(user_ids)
+  end
+
 end
