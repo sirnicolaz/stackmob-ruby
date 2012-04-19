@@ -23,6 +23,7 @@ module StackMob
     BROADCAST_PATH = "/push_broadcast_universal"
     PUSH_TOKENS_PATH = "/push_tokens_universal"
     PUSH_USERS_PATH = "/push_users_universal"
+    GET_USERS_TOKEN_PATH = "/get_tokens_for_users_universal"
 
     DEFAULT_BADGE = 0
     DEFAULT_SOUND = ""
@@ -70,6 +71,11 @@ module StackMob
     def send_message_to_users(to, opts)
       payload = {:userIds => Array(to), :kvPairs => opts}
       self.client.request(:post, PUSH_SVC, PUSH_USERS_PATH, payload)
+    end
+
+    def get_tokens_for_users(to)
+      payload = {:userIds => Array(to).join(",") }
+      response = self.client.request(:get, PUSH_SVC, GET_USERS_TOKEN_PATH, payload)
     end
   end
 

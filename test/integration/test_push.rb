@@ -23,4 +23,14 @@ class PushIntegrationTest < StackMobIntegrationTest
     @push.send_message_to_tokens(@device_token, :alert => "Ruby Gem: This is a message for token: #{@device_token}")
   end
 
+  def test_get_tokens_for_users
+    @push.remove(@device_token)
+
+    @push.register(@user_id, @device_token)
+
+    response = @push.get_tokens_for_users(@user_id)
+
+    assert_equal response["tokens"][@user_id.to_s].any? {|k| @device_token[:token].casecmp(k['token'].to_s) == 0}, true
+  end
+
 end
