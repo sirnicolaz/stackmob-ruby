@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["StackMob"]
-  s.date = "2012-04-09"
+  s.date = "2012-04-26"
   s.description = "Support Gem for StackMob Heroku Add-On"
   s.email = "jordan@stackmob.com"
   s.executables = ["stackmob"]
@@ -51,6 +51,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<thor>, ["~> 0.14.0"])
       s.add_runtime_dependency(%q<thin>, ["~> 1.2.0"])
       s.add_runtime_dependency(%q<rack>, ["~> 1.3"])
+      s.add_runtime_dependency(%q<rack-proxy>, ["~> 0.3.7"])
       s.add_development_dependency(%q<minitest>, ["~> 2.11.0"])
       s.add_development_dependency(%q<yard>, ["~> 0.6.0"])
       s.add_development_dependency(%q<cucumber>, [">= 0"])
@@ -67,6 +68,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<thor>, ["~> 0.14.0"])
       s.add_dependency(%q<thin>, ["~> 1.2.0"])
       s.add_dependency(%q<rack>, ["~> 1.3"])
+      s.add_dependency(%q<rack-proxy>, ["~> 0.3.7"])
       s.add_dependency(%q<minitest>, ["~> 2.11.0"])
       s.add_dependency(%q<yard>, ["~> 0.6.0"])
       s.add_dependency(%q<cucumber>, [">= 0"])
@@ -84,6 +86,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<thor>, ["~> 0.14.0"])
     s.add_dependency(%q<thin>, ["~> 1.2.0"])
     s.add_dependency(%q<rack>, ["~> 1.3"])
+    s.add_dependency(%q<rack-proxy>, ["~> 0.3.7"])
     s.add_dependency(%q<minitest>, ["~> 2.11.0"])
     s.add_dependency(%q<yard>, ["~> 0.6.0"])
     s.add_dependency(%q<cucumber>, [">= 0"])
