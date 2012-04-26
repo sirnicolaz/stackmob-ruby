@@ -73,6 +73,15 @@ module StackMob
     end
   end
 
+  def self.plain_proxy_host
+    if env_url = ENV['STACKMOB_DEV_URL']
+      env_url.sub(/^.*:\/\//, "")
+    else
+      cluster_name = (is_html5?) ? "mob1" : "mob2"
+      "api.#{cluster_name}.stackmob.com"
+    end
+  end
+
   def self.env
     (is_production?) ? PRODUCTION : SANDBOX
   end

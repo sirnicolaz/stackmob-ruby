@@ -13,6 +13,8 @@ class ProxyTest < MiniTest::Unit::TestCase
     launch_test_server do |env|
       if env['HTTP_X_TEST'] 
         [200, {}, ['{"header":true}']]
+      elsif env['HTTP_X_STACKMOB_PROXY_PLAIN'] == 'stackmob-api'
+        [200, {}, ['{"simpleproxy":true"}']]
       elsif env['HTTP_ACCEPT'] != "application/json"
         [200, {}, ["fail"]]
       elsif env['HTTP_AUTHORIZATION'] =~ /^OAuth/
@@ -38,6 +40,11 @@ class ProxyTest < MiniTest::Unit::TestCase
   def test_proxies_request_with_header
     get "/abc", {}, {'X-StackMob-Proxy' => 'stackmob-api'}
     assert_responds_with 200, '{"proxied":true}'
+  end
+
+  def test_plain_proxy
+    get "/plain", {}, {'X-StackMob-Proxy-Plain' => 'stackmob-api'}
+    assert_responds_with 200, '{"simpleproxy":true"}'
   end
 
 

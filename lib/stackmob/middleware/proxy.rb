@@ -13,13 +13,15 @@
 # limitations under the License.
 
 require 'rack'
+require 'rack/proxy'
 
 module StackMob
   module Middleware
-    class Proxy
+    class Proxy < ::Rack::Proxy
       
       HEADER_NAME = 'X-StackMob-Proxy'
-      RACK_ENV_NAME = 'HTTP_X_STACKMOB_PROXY'
+      RACK_ENV_NAME = 'HTTP_X_STACKMOB_PROXY_PLAIN'
+      LEGACY_RACK_ENV_NAME = 'HTTP_X_STACKMOB_PROXY'
       VALID_HEADER_VALUES = ['stackmob-api']
 
       EXCLUDED_HEADERS = ["VERSION", "DATE", "HOST", "ACCEPT"].map { |s| "HTTP_#{s}" }
@@ -29,7 +31,9 @@ module StackMob
       end
 
       def call(env)
-        if VALID_HEADER_VALUES.include?(env[RACK_ENV_NAME])  
+        if VALID_HEADER_VALUES.include?(env[RACK_ENV_NAME])
+          super(env)
+        elsif VALID_HEADER_VALUES.include?(env[LEGACY_RACK_ENV_NAME])  
           req = ::Rack::Request.new(env)
           method = http_method(env)          
           headers = http_headers(env)
@@ -41,6 +45,16 @@ module StackMob
         else
           @app.call(env)
         end
+      end
+
+      def rewrite_env(env)
+        env['HTTP_HOST'] = StackMob.plain_proxy_host
+        if StackMob.plain_proxy_host != ENV['STACKMOB_DEV_URL']
+          # rewrite port for api.stackmob.com
+          env['SERVER_PORT'] = 80 
+        end
+
+        env
       end
 
       def client
