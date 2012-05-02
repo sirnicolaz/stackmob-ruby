@@ -12,9 +12,11 @@ class ProxyTest < MiniTest::Unit::TestCase
 
     launch_test_server do |env|
       if env['HTTP_X_TEST'] 
-        [200, {}, ['{"header":true}']]
+        [200, {}, ['{"header":true}']]      
       elsif env['HTTP_X_STACKMOB_PROXY_PLAIN'] == 'stackmob-api'        
         [200, {'X-Forwarded-Host-Received' => env['HTTP_X_STACKMOB_FORWARDED_HOST'], 'X-Forwarded-Port-Received' => env['HTTP_X_STACKMOB_FORWARDED_PORT']}, ['{"simpleproxy":true"}']]
+      elsif env['PATH_INFO'].to_s.include?("accessToken")
+        [200, {}, ['{"accessToken":true"}']]
       elsif env['HTTP_ACCEPT'] != "application/json"
         [200, {}, ["fail"]]
       elsif env['HTTP_AUTHORIZATION'] =~ /^OAuth/
@@ -46,6 +48,11 @@ class ProxyTest < MiniTest::Unit::TestCase
     get "/plain", {}, {'X-StackMob-Proxy-Plain' => 'stackmob-api'}
     assert_succeeds_with_headers 'x-forwarded-host-received' => "127.0.0.1", 'x-forwarded-port-received' => "4567"
     assert_responds_with 200, '{"simpleproxy":true"}'
+  end
+
+  def test_proxy_access_token_path_plain
+    post "/userschema/accessToken", {}, {}
+    assert_responds_with 200, '{"accessToken":true"}'
   end
 
 

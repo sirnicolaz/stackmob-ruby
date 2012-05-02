@@ -33,7 +33,7 @@ module StackMob
       end
 
       def call(env)
-        if VALID_HEADER_VALUES.include?(env[RACK_ENV_NAME])
+        if VALID_HEADER_VALUES.include?(env[RACK_ENV_NAME]) || env['PATH_INFO'] =~ /^\/?.*\/accessToken/
           super(env)
         elsif VALID_HEADER_VALUES.include?(env[LEGACY_RACK_ENV_NAME])  
           req = ::Rack::Request.new(env)
