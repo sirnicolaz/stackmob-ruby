@@ -23,6 +23,8 @@ module StackMob
       RACK_ENV_NAME = 'HTTP_X_STACKMOB_PROXY_PLAIN'
       LEGACY_RACK_ENV_NAME = 'HTTP_X_STACKMOB_PROXY'
       VALID_HEADER_VALUES = ['stackmob-api']
+      STACKMOB_FORWARDED_HOST_ENV = 'HTTP_X_STACKMOB_FORWARDED_HOST'
+      STACKMOB_FORWARDED_PORT_ENV = 'HTTP_X_STACKMOB_FORWARDED_PORT'
 
       EXCLUDED_HEADERS = ["VERSION", "DATE", "HOST", "ACCEPT"].map { |s| "HTTP_#{s}" }
 
@@ -48,6 +50,8 @@ module StackMob
       end
 
       def rewrite_env(env)
+        env[STACKMOB_FORWARDED_HOST_ENV] = "127.0.0.1"
+        env[STACKMOB_FORWARDED_PORT_ENV] = env['SERVER_PORT']
         env['HTTP_HOST'] = StackMob.plain_proxy_host
         if StackMob.plain_proxy_host != ENV['STACKMOB_DEV_URL']
           # rewrite port for api.stackmob.com
